@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CrisisCore — Expert crisis management, rapid response, and consultation booking for every type of man-made disaster.">
+  <title>CrisisCore — Crisis Management & Response</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Emergency Alert Banner -->
+  <div id="emergency-banner">
+    <div class="banner-label">LIVE</div>
+    <div class="banner-track">
+      <div class="banner-ticker" id="banner-ticker"></div>
+    </div>
+    <button class="banner-close" id="banner-close" aria-label="Dismiss alert banner">&#x2715;</button>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo" data-nav="dashboard">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2L4 8V18C4 24.6 9.4 30.4 16 32C22.6 30.4 28 24.6 28 18V8L16 2Z" fill="#dc2626" opacity="0.15"/>
+          <path d="M16 2L4 8V18C4 24.6 9.4 30.4 16 32C22.6 30.4 28 24.6 28 18V8L16 2Z" stroke="#dc2626" stroke-width="1.5"/>
+          <path d="M11 16L14.5 19.5L21 13" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">Crisis<span class="logo-accent">Core</span></span>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="#dashboard" class="nav-link active" data-nav="dashboard">Dashboard</a>
+        <a href="#protocols" class="nav-link" data-nav="protocols">Protocols</a>
+        <a href="#team" class="nav-link" data-nav="team">Our Experts</a>
+        <a href="#resources" class="nav-link" data-nav="resources">Resources</a>
+        <a href="#case-studies" class="nav-link" data-nav="case-studies">Case Studies</a>
+        <a href="#payment" class="nav-link" data-nav="payment">Pricing</a>
+        <a href="#booking" class="nav-link" data-nav="booking">Book Consultation</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:+18000000000" class="btn btn--emergency pulse-ring">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.92a16 16 0 006.34 6.34l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Emergency Line
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="section-hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>24/7 Global Response Capability</span>
+      </div>
+      <h1 class="hero-title">
+        Rapid Response.<br>
+        Expert Guidance.<br>
+        <span class="hero-accent">Crisis Resolved.</span>
+      </h1>
+      <p class="hero-subtitle">
+        CrisisCore deploys the world's leading crisis management specialists to manage, contain,
+        and resolve every type of man-made disaster — from industrial accidents to cyberattacks.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn--primary btn--lg" data-nav="booking">
+          Book Emergency Consultation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn--ghost btn--lg" data-nav="dashboard">
+          Explore Crisis Types
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat" data-animate>
+          <span class="stat-number" data-count-target="2800">0</span>
+          <span class="stat-label">Cases Resolved</span>
+        </div>
+        <div class="hero-stat" data-animate>
+          <span class="stat-number" data-count-target="94">0</span>
+          <span class="stat-label">Countries Served</span>
+        </div>
+        <div class="hero-stat" data-animate>
+          <span class="stat-number" data-count-target="187">0</span>
+          <span class="stat-label">Experts Deployed</span>
+        </div>
+        <div class="hero-stat" data-animate>
+          <span class="stat-number" data-count-target="15">0</span>
+          <span class="stat-label">Min Avg Response</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="globe-container">
+        <div class="globe">
+          <div class="globe-ring"></div>
+          <div class="globe-ring ring-2"></div>
+          <div class="globe-ring ring-3"></div>
+          <div class="hotspot" style="top:30%;left:20%"></div>
+          <div class="hotspot" style="top:45%;left:55%"></div>
+          <div class="hotspot active" style="top:60%;left:35%"></div>
+          <div class="hotspot" style="top:25%;left:70%"></div>
+          <div class="hotspot active" style="top:55%;left:75%"></div>
+          <div class="hotspot" style="top:70%;left:60%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD SECTION -->
+  <section id="dashboard" class="section section--dashboard">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Crisis Categories</div>
+        <h2>Every Man-Made Crisis.<br>One Response System.</h2>
+        <p>Select a crisis type to view detailed response protocols, resource requirements, and book expert consultation.</p>
+      </div>
+      <div class="crisis-grid" id="crisis-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CRISIS DETAIL PANEL -->
+  <section id="crisis-detail" class="section section--detail hidden">
+    <div class="container">
+      <button class="back-btn" id="detail-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Dashboard
+      </button>
+      <div id="detail-content">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOCOLS SECTION -->
+  <section id="protocols" class="section section--protocols hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Response Protocols</div>
+        <h2>Proven Response Frameworks</h2>
+        <p>Battle-tested protocols developed from 2,800+ real crisis events across every category.</p>
+      </div>
+      <div class="accordion" id="protocols-accordion">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM SECTION -->
+  <section id="team" class="section section--team hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Our Experts</div>
+        <h2>World-Class Crisis Specialists</h2>
+        <p>Former government officials, military officers, and industry leaders with real-world crisis experience.</p>
+      </div>
+      <div class="team-grid" id="team-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES SECTION -->
+  <section id="resources" class="section section--resources hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Resource Library</div>
+        <h2>Crisis Management Resources</h2>
+        <p>Guides, templates, checklists, and legislation summaries to prepare and respond effectively.</p>
+      </div>
+      <div class="resources-controls">
+        <div class="tab-bar" id="resource-tabs">
+          <button class="tab-btn active" data-tab="guides">Guides</button>
+          <button class="tab-btn" data-tab="templates">Templates</button>
+          <button class="tab-btn" data-tab="checklists">Checklists</button>
+          <button class="tab-btn" data-tab="legislation">Legislation</button>
+        </div>
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="resource-search" placeholder="Search resources..." autocomplete="off">
+        </div>
+      </div>
+      <div class="resources-grid" id="resources-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES SECTION -->
+  <section id="case-studies" class="section section--cases hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Case Studies</div>
+        <h2>Crises Managed. Problems Solved.</h2>
+        <p>Real incidents where CrisisCore made the critical difference. Client identities protected.</p>
+      </div>
+      <div class="cases-grid" id="cases-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING SECTION -->
+  <section id="booking" class="section section--booking hidden">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <div class="section-tag">Book Consultation</div>
+        <h2>Get Expert Help Now</h2>
+        <p>Complete the form below to be matched with a crisis management specialist. For life-threatening emergencies, call our emergency line immediately.</p>
+      </div>
+
+      <div class="booking-card" id="booking-card">
+        <!-- Progress Bar -->
+        <div class="booking-progress" id="booking-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-steps" id="progress-steps">
+            <div class="progress-step active" data-step="1">
+              <div class="step-dot"></div>
+              <span>Crisis Type</span>
+            </div>
+            <div class="progress-step" data-step="2">
+              <div class="step-dot"></div>
+              <span>Urgency</span>
+            </div>
+            <div class="progress-step" data-step="3">
+              <div class="step-dot"></div>
+              <span>Schedule</span>
+            </div>
+            <div class="progress-step" data-step="4">
+              <div class="step-dot"></div>
+              <span>Your Details</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Steps Container -->
+        <div id="booking-form-container">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="booking-nav" id="booking-nav">
+          <button class="btn btn--ghost" id="booking-back" style="display:none">Back</button>
+          <div class="booking-nav-right">
+            <span class="step-indicator" id="step-indicator">Step 1 of 4</span>
+            <button class="btn btn--primary" id="booking-next">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT / PRICING SECTION -->
+  <section id="payment" class="section section--payment hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Pricing & Packages</div>
+        <h2>Transparent Pricing.<br>Exceptional Expertise.</h2>
+        <p>Every engagement is tailored to the complexity of your situation. Choose a retainer that fits your needs, or speak to us for a bespoke quote.</p>
+      </div>
+
+      <!-- Trust bar -->
+      <div class="payment-trust-bar">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Secured by Stripe</span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>100% Confidential</span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Response within 15 minutes</span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Dedicated specialist assigned</span>
+        </div>
+      </div>
+
+      <!-- Pricing cards -->
+      <div class="pricing-grid" id="pricing-grid">
+
+        <!-- Essential -->
+        <div class="pricing-card" data-tier="essential">
+          <div class="pricing-card__header">
+            <div class="pricing-tier-tag">Essential</div>
+            <h3 class="pricing-card__name">Crisis Consult</h3>
+            <p class="pricing-card__desc">A single expert session to assess your situation, clarify your options, and give you an immediate action plan.</p>
+          </div>
+          <div class="pricing-card__price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">2,500</span>
+            <span class="price-unit">/ session</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="feat-check">✓</span> 90-minute expert consultation</li>
+            <li><span class="feat-check">✓</span> Written situation assessment</li>
+            <li><span class="feat-check">✓</span> Immediate action plan (24h delivery)</li>
+            <li><span class="feat-check">✓</span> Secure, confidential channel</li>
+            <li><span class="feat-check">✓</span> Follow-up Q&A (48h window)</li>
+            <li class="feat-unavailable"><span>✗</span> Ongoing case management</li>
+            <li class="feat-unavailable"><span>✗</span> Legal & PR coordination</li>
+          </ul>
+          <a href="https://book.stripe.com/3cI00ja3o5pVboc1Si1kA00" target="_blank" rel="noopener noreferrer" class="btn btn--ghost pricing-btn">
+            Get Started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Professional — featured -->
+        <div class="pricing-card pricing-card--featured" data-tier="professional">
+          <div class="pricing-card__badge">Most Popular</div>
+          <div class="pricing-card__header">
+            <div class="pricing-tier-tag pricing-tier-tag--featured">Professional</div>
+            <h3 class="pricing-card__name">Active Crisis Response</h3>
+            <p class="pricing-card__desc">Full hands-on crisis management from initial triage through resolution, with a dedicated lead consultant.</p>
+          </div>
+          <div class="pricing-card__price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">18,000</span>
+            <span class="price-unit">/ month</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="feat-check">✓</span> Dedicated lead consultant</li>
+            <li><span class="feat-check">✓</span> Unlimited consultation hours</li>
+            <li><span class="feat-check">✓</span> 24/7 emergency hotline access</li>
+            <li><span class="feat-check">✓</span> Full crisis response plan</li>
+            <li><span class="feat-check">✓</span> Legal & PR firm coordination</li>
+            <li><span class="feat-check">✓</span> Weekly situation reports</li>
+            <li><span class="feat-check">✓</span> Multi-jurisdiction support</li>
+          </ul>
+          <a href="https://book.stripe.com/3cI00ja3o5pVboc1Si1kA00" target="_blank" rel="noopener noreferrer" class="btn btn--primary pricing-btn">
+            Pay & Activate Now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="pricing-card__note">Billed monthly · Cancel anytime</p>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="pricing-card" data-tier="enterprise">
+          <div class="pricing-card__header">
+            <div class="pricing-tier-tag">Enterprise</div>
+            <h3 class="pricing-card__name">Annual Retainer</h3>
+            <p class="pricing-card__desc">Year-round crisis readiness for UHNW families and family offices. Prevention, preparation, and full response coverage.</p>
+          </div>
+          <div class="pricing-card__price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">120,000</span>
+            <span class="price-unit">/ year</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="feat-check">✓</span> Everything in Professional</li>
+            <li><span class="feat-check">✓</span> Annual risk assessment report</li>
+            <li><span class="feat-check">✓</span> Family & staff security briefings</li>
+            <li><span class="feat-check">✓</span> Digital privacy audit (bi-annual)</li>
+            <li><span class="feat-check">✓</span> Priority dispatch — 10 min SLA</li>
+            <li><span class="feat-check">✓</span> Pre-drafted response protocols</li>
+            <li><span class="feat-check">✓</span> Dedicated account team (3 experts)</li>
+          </ul>
+          <a href="https://book.stripe.com/3cI00ja3o5pVboc1Si1kA00" target="_blank" rel="noopener noreferrer" class="btn btn--ghost pricing-btn">
+            Contact for Quote
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="payment-footer">
+        <p class="payment-disclaimer">All prices shown in USD. Engagements are subject to a confidentiality agreement. For bespoke enterprise pricing, <button class="link-btn" data-nav="booking">book a discovery call</button>.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EMERGENCY CONTACTS SECTION -->
+  <section id="emergency-contacts" class="section section--contacts hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Emergency Contacts</div>
+        <h2>24/7 Global Response Network</h2>
+        <p>Regional offices staffed around the clock. Average response time under 20 minutes worldwide.</p>
+      </div>
+      <div class="contacts-grid" id="contacts-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERT PROFILE MODAL -->
+  <div class="modal-overlay hidden" id="expert-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&#x2715;</button>
+      <div id="modal-content">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY MODAL -->
+  <div class="modal-overlay hidden" id="case-modal" role="dialog" aria-modal="true" aria-labelledby="case-modal-title">
+    <div class="modal modal--wide">
+      <button class="modal-close" id="case-modal-close" aria-label="Close modal">&#x2715;</button>
+      <div id="case-modal-content">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <div id="chat-widget">
+
+    <!-- Toggle bubble -->
+    <button class="chat-bubble" id="chat-toggle" aria-label="Open enquiry chat">
+      <span class="chat-bubble__icon chat-bubble__icon--open">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </span>
+      <span class="chat-bubble__icon chat-bubble__icon--close" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </span>
+      <span class="chat-bubble__dot" id="chat-dot"></span>
+    </button>
+
+    <!-- Chat window -->
+    <div class="chat-window" id="chat-window" aria-hidden="true">
+
+      <!-- Header -->
+      <div class="chat-header">
+        <div class="chat-header__avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="chat-header__info">
+          <p class="chat-header__name">CrisisCore Support</p>
+          <p class="chat-header__status"><span class="status-dot"></span>Online — typically replies instantly</p>
+        </div>
+        <button class="chat-header__close" id="chat-close" aria-label="Close chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages" id="chat-messages">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Quick replies -->
+      <div class="chat-quick-replies" id="chat-quick-replies">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input-bar">
+        <input type="text" id="chat-input" placeholder="Type your message…" autocomplete="off" maxlength="500">
+        <button class="chat-send" id="chat-send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 32 32" fill="none">
+              <path d="M16 2L4 8V18C4 24.6 9.4 30.4 16 32C22.6 30.4 28 24.6 28 18V8L16 2Z" fill="#dc2626" opacity="0.15"/>
+              <path d="M16 2L4 8V18C4 24.6 9.4 30.4 16 32C22.6 30.4 28 24.6 28 18V8L16 2Z" stroke="#dc2626" stroke-width="1.5"/>
+              <path d="M11 16L14.5 19.5L21 13" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="logo-text">Crisis<span class="logo-accent">Core</span></span>
+          </div>
+          <p>The world's most comprehensive crisis management platform. We resolve every man-made disaster, one crisis at a time.</p>
+          <div class="footer-emergency">
+            <a href="tel:+18000000000" class="btn btn--emergency btn--sm">Emergency: +1-800-000-0000</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Crisis Types</h4>
+          <ul>
+            <li><a href="#" data-nav="dashboard" data-crisis="personal-safety">Personal Safety</a></li>
+            <li><a href="#" data-nav="dashboard" data-crisis="reputation">Reputational Crisis</a></li>
+            <li><a href="#" data-nav="dashboard" data-crisis="wealth-fraud">Wealth Fraud</a></li>
+            <li><a href="#" data-nav="dashboard" data-crisis="cyber-privacy">Cybersecurity & Privacy</a></li>
+            <li><a href="#" data-nav="dashboard" data-crisis="legal-tax">Legal & Tax Jeopardy</a></li>
+            <li><a href="#" data-nav="dashboard" data-crisis="family-estate">Family & Estate</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#" data-nav="protocols">Response Protocols</a></li>
+            <li><a href="#" data-nav="team">Expert Consultants</a></li>
+            <li><a href="#" data-nav="resources">Resource Library</a></li>
+            <li><a href="#" data-nav="case-studies">Case Studies</a></li>
+            <li><a href="#" data-nav="payment">Pricing & Packages</a></li>
+            <li><a href="#" data-nav="booking">Book Consultation</a></li>
+            <li><a href="#" data-nav="emergency-contacts">Global Offices</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Stay Prepared</h4>
+          <p style="font-size:0.85rem;color:var(--color-text-secondary);margin-bottom:1rem;">Subscribe to crisis alerts and preparedness briefings.</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="your@email.com" class="newsletter-input">
+            <button class="btn btn--primary btn--sm">Subscribe</button>
+          </div>
+          <p style="font-size:0.75rem;color:var(--color-text-muted);margin-top:0.75rem;">No spam. Crisis alerts and preparedness content only.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CrisisCore Global Response. All rights reserved. This website is for demonstration purposes.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Disclaimer</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EmailJS SDK — for chat lead notifications -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
