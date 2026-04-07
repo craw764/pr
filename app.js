@@ -1405,8 +1405,24 @@ window.CRISISCORE_CONFIG = {
      GLOBAL EVENT BINDINGS
      ============================================================ */
   function bindGlobalEvents() {
-    // iOS Safari: add a no-op touchstart to document so click events bubble correctly
-    document.addEventListener('touchstart', function(){}, {passive: true});
+    // iOS Safari global tap fix — converts taps on non-interactive elements into click events
+    // so all event delegation works correctly on iPhone/iPad
+    const NATIVE_TAGS = new Set(['a','button','input','select','textarea','label']);
+    let _touchStartX = 0, _touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      _touchStartX = e.touches[0].clientX;
+      _touchStartY = e.touches[0].clientY;
+    }, {passive: true});
+    document.addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      const dx = Math.abs(t.clientX - _touchStartX);
+      const dy = Math.abs(t.clientY - _touchStartY);
+      if (dx > 8 || dy > 8) return; // was a scroll gesture, not a tap
+      const el = e.target;
+      if (NATIVE_TAGS.has(el.tagName.toLowerCase())) return; // browser handles natively
+      // Dispatch a real click so all delegated handlers fire
+      el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    }, {passive: true});
 
     // Nav clicks — event delegation covers static + dynamically rendered elements
     document.addEventListener('click', (e) => {
@@ -1441,10 +1457,6 @@ window.CRISISCORE_CONFIG = {
 
     if (DOM.bookingFormContainer) {
       DOM.bookingFormContainer.addEventListener('click', handleBookingClick);
-      DOM.bookingFormContainer.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        handleBookingClick(e);
-      }, {passive: false});
     }
 
     // Booking nav buttons
