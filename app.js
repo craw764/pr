@@ -1405,6 +1405,9 @@ window.CRISISCORE_CONFIG = {
      GLOBAL EVENT BINDINGS
      ============================================================ */
   function bindGlobalEvents() {
+    // iOS Safari: add a no-op touchstart to document so click events bubble correctly
+    document.addEventListener('touchstart', function(){}, {passive: true});
+
     // Nav clicks — event delegation covers static + dynamically rendered elements
     document.addEventListener('click', (e) => {
       const el = e.target.closest('[data-nav]');
@@ -1418,24 +1421,30 @@ window.CRISISCORE_CONFIG = {
     });
 
     // Booking form — delegated click handler for dynamically rendered step elements
+    function handleBookingClick(e) {
+      // Step 1: crisis type selection
+      const tile = e.target.closest('.crisis-type-tile');
+      if (tile) {
+        DOM.bookingFormContainer.querySelectorAll('.crisis-type-tile').forEach(t => t.classList.remove('selected'));
+        tile.classList.add('selected');
+        STATE.booking.data.crisisTypeId = tile.dataset.crisisId;
+        return;
+      }
+      // Step 2: urgency selection
+      const card = e.target.closest('.urgency-card');
+      if (card) {
+        DOM.bookingFormContainer.querySelectorAll('.urgency-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        STATE.booking.data.urgency = card.dataset.urgency;
+      }
+    }
+
     if (DOM.bookingFormContainer) {
-      DOM.bookingFormContainer.addEventListener('click', (e) => {
-        // Step 1: crisis type selection
-        const tile = e.target.closest('.crisis-type-tile');
-        if (tile) {
-          DOM.bookingFormContainer.querySelectorAll('.crisis-type-tile').forEach(t => t.classList.remove('selected'));
-          tile.classList.add('selected');
-          STATE.booking.data.crisisTypeId = tile.dataset.crisisId;
-          return;
-        }
-        // Step 2: urgency selection
-        const card = e.target.closest('.urgency-card');
-        if (card) {
-          DOM.bookingFormContainer.querySelectorAll('.urgency-card').forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-          STATE.booking.data.urgency = card.dataset.urgency;
-        }
-      });
+      DOM.bookingFormContainer.addEventListener('click', handleBookingClick);
+      DOM.bookingFormContainer.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        handleBookingClick(e);
+      }, {passive: false});
     }
 
     // Booking nav buttons

@@ -49,6 +49,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -58,6 +59,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   padding-top: calc(var(--header-height) + var(--banner-height));
+  /* iOS Safari: required for click delegation on non-interactive elements */
+  cursor: pointer;
 }
 
 body.banner-dismissed {
@@ -154,6 +157,8 @@ h4 { font-size: 1.1rem; }
   text-transform: uppercase;
   transition: all var(--transition-fast);
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   border: none;
   white-space: nowrap;
 }
@@ -1455,6 +1460,8 @@ body.banner-dismissed #site-header {
   padding: 1rem 0.75rem;
   text-align: center;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: all var(--transition-fast);
   display: flex;
   flex-direction: column;
@@ -1510,6 +1517,8 @@ body.banner-dismissed #site-header {
   border-radius: var(--radius-md);
   padding: 1.25rem;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: all var(--transition-fast);
 }
 
