@@ -458,6 +458,7 @@ body.banner-dismissed #site-header {
 .hero-bg-grid {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(29, 78, 216, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(29, 78, 216, 0.03) 1px, transparent 1px);
@@ -613,6 +614,7 @@ body.banner-dismissed #site-header {
   border-radius: 50%;
   border: 1px solid rgba(59, 130, 246, 0.1);
   animation: globeRotate 20s linear infinite;
+  pointer-events: none;
 }
 
 .globe-ring.ring-2 {
@@ -688,6 +690,7 @@ body.banner-dismissed #site-header {
   background: var(--card-color, var(--color-accent-red));
   transform: scaleX(0);
   transform-origin: left;
+  pointer-events: none;
   transition: transform var(--transition-base);
 }
 
