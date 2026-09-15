@@ -1,5 +1,5 @@
 /* ============================================================
-   Eyindah Luxe and Locks — App Logic
+   Nnenny's Hair — App Logic
    ============================================================ */
 
 'use strict';
@@ -7,70 +7,41 @@
 /* ----------------------------------------------------------
    DATA
 ---------------------------------------------------------- */
+const BRAID_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 0-4 4-4 9s4 9 4 9M12 2c0 0 4 4 4 9s-4 9-4 9M2 12h20"/></svg>`;
+const CORNROW_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3c0 9 0 9 7 18M12 3c0 9 0 9 0 18M19 3c0 9 0 9-7 18"/></svg>`;
+const NEEDLE_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+const CURL_SVG    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4c0 0 4 0 4 8s-4 8-4 8M20 4c0 0-4 0-4 8s4 8 4 8M12 3v18"/></svg>`;
+const WAVE_SVG    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/><path d="M2 17c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>`;
+const KNOT_SVG    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg>`;
+
 const SERVICES = [
-  {
-    id: 'cut-style',
-    name: 'Cut & Style',
-    desc: 'Precision cut tailored to your face shape and lifestyle, finished with a professional blowout.',
-    duration: '60 min',
-    price: '$85',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path d="M18 15a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path d="M8.12 8.12 12 12M12 12l7.88 7.88M20 4 8.12 15.88"/></svg>`
-  },
-  {
-    id: 'colour',
-    name: 'Colour & Highlights',
-    desc: 'From subtle ribbons of colour to a full transformation. Includes consultation and toner.',
-    duration: '120–180 min',
-    price: '$150',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>`
-  },
-  {
-    id: 'balayage',
-    name: 'Balayage',
-    desc: 'Hand-painted freehand colour for a natural, sun-kissed effect with effortless grow-out.',
-    duration: '150–210 min',
-    price: '$200',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`
-  },
-  {
-    id: 'blowout',
-    name: 'Blowout & Finish',
-    desc: 'A professional blowout using salon-grade products for a polished, long-lasting result.',
-    duration: '45 min',
-    price: '$65',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
-  },
-  {
-    id: 'treatment',
-    name: 'Hair Treatment',
-    desc: 'Targeted treatments including bond repair, deep conditioning, and scalp therapy.',
-    duration: '60–90 min',
-    price: '$95',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`
-  },
-  {
-    id: 'extensions',
-    name: 'Extensions Consult',
-    desc: 'Complimentary consultation to explore tape-in, nano-ring, or halo extension options.',
-    duration: '30 min',
-    price: 'Free',
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>`
-  }
+  { id: 'cornrows-plain',  name: 'Cornrows (No Extension)', desc: 'Classic, neat cornrows styled close to the scalp using your natural hair only.',          duration: '1–2 hrs',   price: '£40',  icon: CORNROW_SVG },
+  { id: 'cornrows-ext',    name: 'Cornrows (With Extension)',desc: 'Sleek cornrows extended with braiding hair for added length and fuller coverage.',         duration: '2–3 hrs',   price: '£60',  icon: CORNROW_SVG },
+  { id: 'knotless-braids', name: 'Knotless Braids',         desc: 'Tension-free individual braids that start with your own hair for a natural, pain-free finish.', duration: '3–5 hrs', price: '£90',  icon: BRAID_SVG  },
+  { id: 'box-braids',      name: 'Box Braids',              desc: 'Timeless protective style with clean square partings and your choice of length and thickness.', duration: '3–5 hrs', price: '£80',  icon: BRAID_SVG  },
+  { id: 'boho-braids',     name: 'Boho Braids',             desc: 'Romantic knotless braids with loose, curly ends for a free-spirited, effortless look.',   duration: '4–6 hrs',   price: '£110', icon: CURL_SVG   },
+  { id: 'goddess-braids',  name: 'Goddess Braids',          desc: 'Thick, bold cornrow-style braids often worn as an updo or swept back style.',              duration: '2–3 hrs',   price: '£75',  icon: CORNROW_SVG},
+  { id: 'ghana-weaving',   name: 'Ghana Weaving',           desc: 'Intricate feed-in cornrows starting small at the hairline and gradually increasing in size.', duration: '2–4 hrs', price: '£70',  icon: WAVE_SVG   },
+  { id: 'french-curls',    name: 'French Curls',            desc: 'Beautiful bouncy curls created using a crochet hook for a voluminous, defined look.',       duration: '2–3 hrs',   price: '£65',  icon: CURL_SVG   },
+  { id: 'sew-in',          name: 'Sew In',                  desc: 'Weft hair sewn onto cornrowed natural hair for a seamless, long-lasting protective style.',  duration: '2–4 hrs',   price: '£85',  icon: NEEDLE_SVG },
+  { id: 'crochet',         name: 'Crochet',                 desc: 'Pre-looped hair attached with a crochet needle to cornrow base — quick and versatile.',     duration: '2–3 hrs',   price: '£70',  icon: KNOT_SVG   },
+  { id: 'mens-cornrows',   name: "Men's Cornrows",          desc: 'Sharp, clean cornrows tailored for men — straight backs, designs, or curved patterns.',     duration: '1–2 hrs',   price: '£45',  icon: CORNROW_SVG},
+  { id: 'miracle-knots',   name: 'Miracle Knots Braids',   desc: 'Invisible-knot individual braids that look as if they grow directly from the scalp.',        duration: '3–5 hrs',   price: '£100', icon: KNOT_SVG   }
 ];
 
 const HAIR_STYLES = [
-  { id: 'blunt-bob',     category: 'Cuts',    name: 'Blunt Bob',           desc: 'Clean, geometric lines at the jaw',           gradient: 'linear-gradient(145deg,#0d0d0d 0%,#2a2a2a 60%,#4a4540 100%)' },
-  { id: 'layered-long',  category: 'Cuts',    name: 'Layered Long',        desc: 'Face-framing layers with movement',            gradient: 'linear-gradient(145deg,#1a1008 0%,#3d2510 60%,#7a4a25 100%)' },
-  { id: 'pixie-crop',    category: 'Cuts',    name: 'Pixie Crop',          desc: 'Bold, short & effortlessly chic',              gradient: 'linear-gradient(145deg,#0f0f0f 0%,#1f1f1f 60%,#383838 100%)' },
-  { id: 'wolf-cut',      category: 'Cuts',    name: 'Wolf Cut',            desc: 'Textured layers with curtain bangs',           gradient: 'linear-gradient(145deg,#150d00 0%,#3d2000 60%,#8b4a00 100%)' },
-  { id: 'honey-balayage',category: 'Colour',  name: 'Honey Balayage',      desc: 'Warm golden tones, hand-painted',              gradient: 'linear-gradient(145deg,#2a1800 0%,#8b5500 50%,#c9a96e 100%)' },
-  { id: 'ash-blonde',    category: 'Colour',  name: 'Ash Blonde',          desc: 'Cool, platinum-toned fade',                    gradient: 'linear-gradient(145deg,#1c1c1c 0%,#7a7a7a 55%,#d4cfc0 100%)' },
-  { id: 'rich-brunette', category: 'Colour',  name: 'Rich Brunette Gloss', desc: 'Deep, lustrous chocolate tones',               gradient: 'linear-gradient(145deg,#0f0500 0%,#3d1500 50%,#7a3000 100%)' },
-  { id: 'vivid-auburn',  category: 'Colour',  name: 'Vivid Auburn',        desc: 'Fiery copper-red dimension',                   gradient: 'linear-gradient(145deg,#1a0500 0%,#7a1500 50%,#c94010 100%)' },
-  { id: 'platinum',      category: 'Colour',  name: 'Platinum',            desc: 'Full silver-white transformation',             gradient: 'linear-gradient(145deg,#1a1a1a 0%,#888 55%,#ede8df 100%)' },
-  { id: 'defined-curls', category: 'Natural', name: 'Defined Curls',       desc: 'Enhanced curl pattern, frizz-free',            gradient: 'linear-gradient(145deg,#150a00 0%,#4a2000 50%,#8b5525 100%)' },
-  { id: 'braid-updo',    category: 'Styling', name: 'Braid Updo',          desc: 'Intricate braided formal styling',             gradient: 'linear-gradient(145deg,#0a0510 0%,#25105a 50%,#5020a0 100%)' },
-  { id: 'sleek-straight',category: 'Styling', name: 'Sleek & Straight',    desc: 'Ultra-smooth, mirror-finish straight',         gradient: 'linear-gradient(145deg,#0f0f0f 0%,#222 50%,#3d3530 100%)' }
+  { id: 'cornrows-back',    category: 'Cornrows', name: 'Straight Back',        desc: 'Clean rows swept straight to the back',      gradient: 'linear-gradient(145deg,#150a00 0%,#3d1f00 55%,#7a4010 100%)' },
+  { id: 'cornrows-design',  category: 'Cornrows', name: 'Cornrow Design',       desc: 'Custom pattern or curved design cornrows',    gradient: 'linear-gradient(145deg,#0a0510 0%,#25105a 55%,#5020a0 100%)' },
+  { id: 'cornrows-updo',    category: 'Cornrows', name: 'Cornrow Updo',         desc: 'Cornrows gathered into an elegant updo',      gradient: 'linear-gradient(145deg,#1a0800 0%,#4a1800 55%,#8b3510 100%)' },
+  { id: 'knotless-medium',  category: 'Braids',   name: 'Knotless — Medium',    desc: 'Medium-sized, shoulder to waist length',      gradient: 'linear-gradient(145deg,#2a1800 0%,#6b3c00 50%,#c9a96e 100%)' },
+  { id: 'knotless-small',   category: 'Braids',   name: 'Knotless — Small',     desc: 'Fine individual braids for a delicate look',  gradient: 'linear-gradient(145deg,#1a1000 0%,#5a3000 50%,#a07030 100%)' },
+  { id: 'box-braids-large', category: 'Braids',   name: 'Box Braids — Large',   desc: 'Bold, chunky box braids, shoulder length+',   gradient: 'linear-gradient(145deg,#0f0500 0%,#3d1500 50%,#7a3000 100%)' },
+  { id: 'boho-style',       category: 'Braids',   name: 'Boho Braids',          desc: 'Knotless with loose curly ends woven in',     gradient: 'linear-gradient(145deg,#200800 0%,#6b2800 50%,#c97040 100%)' },
+  { id: 'goddess-style',    category: 'Braids',   name: 'Goddess Braids',       desc: 'Thick, bold braids as an updo or swept back', gradient: 'linear-gradient(145deg,#150d00 0%,#4a2800 50%,#8b5500 100%)' },
+  { id: 'ghana-feedin',     category: 'Weaving',  name: 'Ghana Feed-In',        desc: 'Feed-in cornrows, small to large gradient',   gradient: 'linear-gradient(145deg,#0a0a1a 0%,#1a1a4a 50%,#3535aa 100%)' },
+  { id: 'french-curls-st',  category: 'Curls',    name: 'French Curls',         desc: 'Bouncy defined curls, crochet method',        gradient: 'linear-gradient(145deg,#1a0500 0%,#7a1500 50%,#c94010 100%)' },
+  { id: 'miracle-knots-st', category: 'Braids',   name: 'Miracle Knots',        desc: 'Invisible knot braids — looks grown from scalp', gradient: 'linear-gradient(145deg,#1c1c1c 0%,#444 55%,#8a8a8a 100%)' },
+  { id: 'crochet-st',       category: 'Curls',    name: 'Crochet Style',        desc: 'Voluminous crochet — locs, curls or waves',   gradient: 'linear-gradient(145deg,#0f0f0f 0%,#222 50%,#3d3530 100%)' }
 ];
 
 const STYLISTS = [
@@ -81,62 +52,52 @@ const STYLISTS = [
 ];
 
 const GALLERY = [
-  { category: 'Balayage', label: 'Warm Honey Balayage',     gradient: 'linear-gradient(145deg,#3d2000 0%,#8b5500 40%,#c9a96e 100%)' },
-  { category: 'Colour',   label: 'Rich Brunette Gloss',     gradient: 'linear-gradient(145deg,#150800 0%,#4a1800 50%,#8b3510 100%)' },
-  { category: 'Cuts',     label: 'Geometric Bob',           gradient: 'linear-gradient(145deg,#0d0d0d 0%,#2a2a2a 50%,#4a4540 100%)' },
-  { category: 'Balayage', label: 'Ash Blonde Melt',         gradient: 'linear-gradient(145deg,#1c1c1c 0%,#7a7a7a 50%,#d4cfc0 100%)' },
-  { category: 'Colour',   label: 'Vivid Auburn',            gradient: 'linear-gradient(145deg,#200800 0%,#8b2000 50%,#c94010 100%)' },
-  { category: 'Natural',  label: 'Defined Curl Pattern',    gradient: 'linear-gradient(145deg,#1a0800 0%,#4a2000 50%,#8b5525 100%)' },
-  { category: 'Cuts',     label: 'Layered Long Cut',        gradient: 'linear-gradient(145deg,#0d0500 0%,#250f00 50%,#4a2000 100%)' },
-  { category: 'Styling',  label: 'Bridal Updo',             gradient: 'linear-gradient(145deg,#0d0a0a 0%,#2a2025 50%,#c9a96e 100%)' },
-  { category: 'Colour',   label: 'Platinum Transformation', gradient: 'linear-gradient(145deg,#1a1a1a 0%,#888 50%,#ede8df 100%)' }
+  { category: 'Cornrows',  label: 'Straight Back Cornrows',  gradient: 'linear-gradient(145deg,#150a00 0%,#3d1f00 45%,#8b4a10 100%)' },
+  { category: 'Braids',    label: 'Knotless Braids',         gradient: 'linear-gradient(145deg,#2a1800 0%,#7a4000 45%,#c9a96e 100%)' },
+  { category: 'Braids',    label: 'Box Braids',              gradient: 'linear-gradient(145deg,#0f0500 0%,#3d1500 50%,#7a3000 100%)' },
+  { category: 'Weaving',   label: 'Ghana Feed-In Weaving',   gradient: 'linear-gradient(145deg,#0a0a1a 0%,#1a1a4a 50%,#3535aa 100%)' },
+  { category: 'Braids',    label: 'Boho Braids with Curls',  gradient: 'linear-gradient(145deg,#200800 0%,#6b2800 50%,#c97040 100%)' },
+  { category: 'Curls',     label: 'French Curls',            gradient: 'linear-gradient(145deg,#1a0500 0%,#7a1500 50%,#c94010 100%)' },
+  { category: 'Cornrows',  label: 'Cornrow Design Pattern',  gradient: 'linear-gradient(145deg,#0a0510 0%,#25105a 50%,#5020a0 100%)' },
+  { category: 'Braids',    label: 'Goddess Braids Updo',     gradient: 'linear-gradient(145deg,#150d00 0%,#4a2800 50%,#8b5500 100%)' },
+  { category: 'Curls',     label: 'Crochet Volume Style',    gradient: 'linear-gradient(145deg,#0f0f0f 0%,#282828 50%,#3d3530 100%)' }
 ];
 
 const TESTIMONIALS = [
-  { name: 'Amara O.',     service: 'Balayage',          rating: 5, text: 'Sofia is an absolute artist. I walked in with damaged colour and walked out with the most beautiful honey-toned balayage. Worth every penny.' },
-  { name: 'Charlotte B.', service: 'Cut & Style',       rating: 5, text: "Isabelle understood exactly what I wanted from the first consultation. The cut is perfect — grows out beautifully. I won't go anywhere else." },
-  { name: 'Michael T.',   service: 'Precision Cut',     rating: 5, text: 'Marcus is the only person I trust with my hair. Meticulous, knowledgeable, and genuinely cares about the result. The salon itself is stunning.' },
-  { name: 'Priya S.',     service: 'Colour Correction', rating: 5, text: "After a disaster at another salon, Isabelle rescued my hair over two sessions. Her knowledge is unmatched. I finally have the colour I've always wanted." },
-  { name: 'Dani K.',      service: 'Natural Styling',   rating: 5, text: 'James really listened to my curl concerns and gave me a routine that works. My curls have never looked this good. A truly transformative experience.' },
-  { name: 'Sophie R.',    service: 'Blowout',           rating: 5, text: 'Even the blowout here is an experience. The products smell divine and my hair lasted 4 days. I feel like a celebrity every visit.' }
+  { name: 'Adaeze N.',    service: 'Knotless Braids',   rating: 5, text: "Nnenny is an absolute genius with braids. My knotless braids were so neat and lasted weeks. No tension, no pain — just perfect. I won't go anywhere else." },
+  { name: 'Temi A.',      service: 'Boho Braids',       rating: 5, text: 'I asked for boho braids for my birthday and she absolutely delivered. The curls were so beautiful and everyone kept asking where I got them done.' },
+  { name: 'Marcus D.',    service: "Men's Cornrows",    rating: 5, text: 'Best cornrows I have had in Bournemouth by far. Clean parts, tight but not painful, and they lasted over three weeks. Will definitely be back.' },
+  { name: 'Chisom E.',    service: 'Ghana Weaving',     rating: 5, text: 'My Ghana weaving was immaculate — the feed-in was so smooth and the pattern was exactly what I wanted. Nnenny really takes her time and cares about the result.' },
+  { name: 'Fatima B.',    service: 'Crochet',           rating: 5, text: 'I was a bit nervous about crochet for the first time but she made me feel so comfortable. The finish looked so natural and full. Absolutely loved it.' },
+  { name: 'Jasmine O.',   service: 'Miracle Knots Braids', rating: 5, text: 'These miracle knots are everything! They look completely natural, like they are growing from my scalp. I have had so many compliments. Amazing work.' }
 ];
 
 const PRICING = [
   {
-    category: 'Cuts & Styling',
+    category: 'Cornrows',
     items: [
-      { name: 'Cut & Blowout',       price: 'from $85'  },
-      { name: 'Cut (no blowout)',    price: 'from $65'  },
-      { name: 'Blowout & Finish',    price: 'from $55'  },
-      { name: "Men's Cut & Style",   price: 'from $65'  }
+      { name: 'Cornrows (No Extension)',  price: 'from £40' },
+      { name: 'Cornrows (With Extension)',price: 'from £60' },
+      { name: "Men's Cornrows",           price: 'from £45' },
+      { name: 'Goddess Braids',           price: 'from £75' }
     ]
   },
   {
-    category: 'Colour',
+    category: 'Individual Braids',
     items: [
-      { name: 'Full Colour',         price: 'from $120' },
-      { name: 'Full Highlights',     price: 'from $160' },
-      { name: 'Balayage',            price: 'from $195' },
-      { name: 'Colour Correction',   price: 'from $250', note: 'Consultation required' },
-      { name: 'Toner / Gloss',       price: 'from $55'  },
-      { name: 'Colour + Cut',        price: 'from $220' }
+      { name: 'Knotless Braids',          price: 'from £90',  note: 'Hair included' },
+      { name: 'Box Braids',               price: 'from £80',  note: 'Hair included' },
+      { name: 'Boho Braids',              price: 'from £110', note: 'Hair included' },
+      { name: 'Miracle Knots Braids',     price: 'from £100', note: 'Hair included' }
     ]
   },
   {
-    category: 'Treatments',
+    category: 'Weaving & Curls',
     items: [
-      { name: 'Bond Repair',         price: 'from $85'  },
-      { name: 'Deep Conditioning',   price: 'from $65'  },
-      { name: 'Scalp Therapy',       price: 'from $75'  },
-      { name: 'Keratin Smoothing',   price: 'from $220' }
-    ]
-  },
-  {
-    category: 'Extensions',
-    items: [
-      { name: 'Extensions Consult',  price: 'Complimentary', isFree: true },
-      { name: 'Tape-In (fitting)',   price: 'from $350', note: 'Hair extra' },
-      { name: 'Nano-Ring',           price: 'from $480', note: 'Hair extra' }
+      { name: 'Ghana Weaving',            price: 'from £70' },
+      { name: 'French Curls',             price: 'from £65' },
+      { name: 'Sew In',                   price: 'from £85', note: 'Hair extra' },
+      { name: 'Crochet',                  price: 'from £70', note: 'Hair extra' }
     ]
   }
 ];
