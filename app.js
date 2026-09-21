@@ -110,9 +110,9 @@ const PRICING = [
   {
     category: 'Fees & Policies',
     items: [
-      { name: 'Late Arrival (15–29 min)', price: '+£10', note: 'Charged at appointment' },
-      { name: 'Late Arrival (30+ min)',   price: 'Appointment cancelled', note: 'Full deposit forfeited' },
-      { name: 'Cancellation (< 24 hrs)', price: 'Deposit lost', note: 'No refund within 24 hours' }
+      { name: 'Late Arrival (15–29 min)', price: '+£10', note: 'Added to service cost' },
+      { name: 'Late Arrival (30+ min)',   price: 'Appointment cancelled', note: 'No charge if cancelled by us' },
+      { name: 'Cancellation (< 24 hrs)', price: 'No charge', note: 'Please give as much notice as possible' }
     ]
   }
 ];
@@ -574,7 +574,7 @@ function renderStep5() {
         <div class="policy-notice__title">Lateness Policy</div>
         <div class="policy-notice__text">
           Arriving <strong>15–29 minutes late</strong> incurs a <strong>£10 surcharge</strong>.
-          Arriving <strong>30+ minutes late</strong> will result in the appointment being cancelled and the deposit forfeited.
+          Arriving <strong>30+ minutes late</strong> will result in the appointment being cancelled.
           Please contact us if you are running late.
         </div>
       </div>
@@ -619,7 +619,7 @@ function renderStep5() {
       <div class="form-group" id="fg-policy">
         <label class="checkbox-label">
           <input type="checkbox" id="b-policy" ${booking.client.policyAccepted ? 'checked' : ''}>
-          <span>I understand that arriving 15+ minutes late incurs a <strong>£10 surcharge</strong>, and 30+ minutes late will cancel my appointment.</span>
+          <span>I understand that arriving 15–29 minutes late incurs a <strong>£10 charge added to my service cost</strong>, and arriving 30+ minutes late will result in my appointment being cancelled.</span>
         </label>
         <span class="field-error">Please acknowledge the lateness policy.</span>
       </div>
