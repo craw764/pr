@@ -1029,6 +1029,10 @@ em { font-style: italic; color: var(--gold); }
   height: 100%;
   transition: transform 0.5s ease;
 }
+.gallery-photo {
+  object-fit: cover;
+  display: block;
+}
 .gallery-item:hover .gallery-art { transform: scale(1.05); }
 
 .gallery-overlay {

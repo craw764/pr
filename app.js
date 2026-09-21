@@ -52,8 +52,9 @@ const STYLISTS = [
 ];
 
 const GALLERY = [
+  { category: 'Braids',    label: 'Passion Twists',          photo: 'images/style-twists.png' },
+  { category: 'Braids',    label: 'Knotless Braids',         photo: 'images/style-knotless.png' },
   { category: 'Cornrows',  label: 'Straight Back Cornrows',  gradient: 'linear-gradient(145deg,#150a00 0%,#3d1f00 45%,#8b4a10 100%)' },
-  { category: 'Braids',    label: 'Knotless Braids',         gradient: 'linear-gradient(145deg,#2a1800 0%,#7a4000 45%,#c9a96e 100%)' },
   { category: 'Braids',    label: 'Box Braids',              gradient: 'linear-gradient(145deg,#0f0500 0%,#3d1500 50%,#7a3000 100%)' },
   { category: 'Weaving',   label: 'Ghana Feed-In Weaving',   gradient: 'linear-gradient(145deg,#0a0a1a 0%,#1a1a4a 50%,#3535aa 100%)' },
   { category: 'Braids',    label: 'Boho Braids with Curls',  gradient: 'linear-gradient(145deg,#200800 0%,#6b2800 50%,#c97040 100%)' },
@@ -260,8 +261,11 @@ function initGallery() {
   `).join('');
 
   gridEl.innerHTML = GALLERY.map(g => `
-    <div class="gallery-item reveal" data-cat="${g.category}">
-      <div class="gallery-art" style="background:${g.gradient}"></div>
+    <div class="gallery-item reveal ${g.photo ? 'gallery-item--photo' : ''}" data-cat="${g.category}">
+      ${g.photo
+        ? `<img class="gallery-art gallery-photo" src="${g.photo}" alt="${g.label}" loading="lazy">`
+        : `<div class="gallery-art" style="background:${g.gradient}"></div>`
+      }
       <div class="gallery-overlay">
         <div class="gallery-cat">${g.category}</div>
         <div class="gallery-label">${g.label}</div>
