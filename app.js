@@ -106,6 +106,14 @@ const PRICING = [
       { name: 'Home Visit Surcharge',     price: '+£20', note: 'Added to any service' },
       { name: 'Travel Area',              price: 'Bournemouth & surrounding', isFree: true }
     ]
+  },
+  {
+    category: 'Fees & Policies',
+    items: [
+      { name: 'Late Arrival (15–29 min)', price: '+£10', note: 'Charged at appointment' },
+      { name: 'Late Arrival (30+ min)',   price: 'Appointment cancelled', note: 'Full deposit forfeited' },
+      { name: 'Cancellation (< 24 hrs)', price: 'Deposit lost', note: 'No refund within 24 hours' }
+    ]
   }
 ];
 
@@ -559,6 +567,19 @@ function renderStep5() {
   el('booking-body').innerHTML = `
     <h3 class="step-title">Your Details</h3>
     <p class="step-subtitle">We'll send your confirmation to the email address below.</p>
+
+    <div class="policy-notice">
+      <div class="policy-notice__icon">⏱</div>
+      <div class="policy-notice__body">
+        <div class="policy-notice__title">Lateness Policy</div>
+        <div class="policy-notice__text">
+          Arriving <strong>15–29 minutes late</strong> incurs a <strong>£10 surcharge</strong>.
+          Arriving <strong>30+ minutes late</strong> will result in the appointment being cancelled and the deposit forfeited.
+          Please contact us if you are running late.
+        </div>
+      </div>
+    </div>
+
     <form class="booking-form" id="booking-form" novalidate>
       <div class="form-row">
         <div class="form-group" id="fg-first">
@@ -594,6 +615,13 @@ function renderStep5() {
           <span style="color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
         </label>
         <textarea id="b-notes" placeholder="Any hair concerns, allergies, or inspiration images…">${booking.client.notes||''}</textarea>
+      </div>
+      <div class="form-group" id="fg-policy">
+        <label class="checkbox-label">
+          <input type="checkbox" id="b-policy" ${booking.client.policyAccepted ? 'checked' : ''}>
+          <span>I understand that arriving 15+ minutes late incurs a <strong>£10 surcharge</strong>, and 30+ minutes late will cancel my appointment.</span>
+        </label>
+        <span class="field-error">Please acknowledge the lateness policy.</span>
       </div>
     </form>
   `;
@@ -690,8 +718,10 @@ function validateStep() {
     check('fg-email',   !!email && email.includes('@'));
     check('fg-phone',   !!phone);
     if (booking.location === 'home') check('fg-address', !!address);
+    const policyAccepted = el('b-policy') && el('b-policy').checked;
+    check('fg-policy', !!policyAccepted);
     if (!ok) return false;
-    booking.client = { firstName: first, lastName: last, email, phone, address: address !== 'salon' ? address : '', notes: el('b-notes') && el('b-notes').value.trim() };
+    booking.client = { firstName: first, lastName: last, email, phone, address: address !== 'salon' ? address : '', notes: el('b-notes') && el('b-notes').value.trim(), policyAccepted: true };
   }
   return true;
 }
