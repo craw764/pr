@@ -99,17 +99,25 @@ const PRICING = [
       { name: 'Sew In',                   price: 'from £85', note: 'Hair extra' },
       { name: 'Crochet',                  price: 'from £70', note: 'Hair extra' }
     ]
+  },
+  {
+    category: 'Home Visit',
+    items: [
+      { name: 'Home Visit Surcharge',     price: '+£20', note: 'Added to any service' },
+      { name: 'Travel Area',              price: 'Bournemouth & surrounding', isFree: true }
+    ]
   }
 ];
 
 /* ----------------------------------------------------------
    BOOKING STATE
 ---------------------------------------------------------- */
-const booking = { service: null, style: null, stylist: null, date: null, time: null, client: {} };
+const booking = { service: null, style: null, location: null, date: null, time: null, client: {} };
 
 const STEPS = [
   { label: 'Service' },
   { label: 'Style' },
+  { label: 'Location' },
   { label: 'Date & Time' },
   { label: 'Details' }
 ];
@@ -436,38 +444,50 @@ function renderStep2() {
   renderFooter(true);
 }
 
-/* ---------- STEP 3: Stylist ---------- */
+/* ---------- STEP 3: Location ---------- */
 function renderStep3() {
-  const all = [
-    { id: 'any', initials: '✦', name: 'No Preference', role: 'Best available stylist', specialties: ['All services'] },
-    ...STYLISTS
+  const LOCATIONS = [
+    {
+      id: 'salon',
+      title: 'Salon Visit',
+      subtitle: 'No extra charge',
+      detail: '46 Northcote Road, Bournemouth BH1 4SQ',
+      surcharge: 0,
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
+    },
+    {
+      id: 'home',
+      title: 'Home Visit',
+      subtitle: '+£20 surcharge',
+      detail: 'We come to you — provide your address in the next step',
+      surcharge: 20,
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`
+    }
   ];
 
   el('booking-body').innerHTML = `
-    <h3 class="step-title">Select a Stylist</h3>
-    <p class="step-subtitle">Choose who you'd like to work with, or let us assign the best available.</p>
-    <div class="stylist-options" id="stylist-opts">
-      ${all.map(s => `
-        <div class="stylist-opt ${booking.stylist?.id === s.id ? 'selected' : ''}" data-id="${s.id}">
-          <div class="stylist-opt__av">${s.initials}</div>
-          <div class="stylist-opt__body">
-            <div class="stylist-opt__name">${s.name}</div>
-            <div class="stylist-opt__role">${s.role}</div>
-            ${s.specialties ? `<div class="stylist-opt__specs">${s.specialties.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : ''}
+    <h3 class="step-title">Where Would You Like Your Appointment?</h3>
+    <p class="step-subtitle">Choose between visiting the salon or having us come to you.</p>
+    <div class="location-options" id="location-opts">
+      ${LOCATIONS.map(loc => `
+        <div class="location-opt ${booking.location === loc.id ? 'selected' : ''}" data-id="${loc.id}">
+          <div class="location-opt__icon">${loc.icon}</div>
+          <div class="location-opt__body">
+            <div class="location-opt__title">${loc.title}</div>
+            <div class="location-opt__sub ${loc.surcharge ? 'surcharge' : ''}">${loc.subtitle}</div>
+            <div class="location-opt__detail">${loc.detail}</div>
           </div>
-          <div class="stylist-opt__check">✓</div>
+          <div class="location-opt__check">✓</div>
         </div>
       `).join('')}
     </div>
   `;
 
-  el('stylist-opts').addEventListener('click', e => {
-    const opt = e.target.closest('.stylist-opt');
+  el('location-opts').addEventListener('click', e => {
+    const opt = e.target.closest('.location-opt');
     if (!opt) return;
-    booking.stylist = opt.dataset.id === 'any'
-      ? { id: 'any', name: 'No preference' }
-      : STYLISTS.find(s => s.id === opt.dataset.id);
-    qsa('.stylist-opt').forEach(o => o.classList.toggle('selected', o === opt));
+    booking.location = opt.dataset.id;
+    qsa('.location-opt').forEach(o => o.classList.toggle('selected', o === opt));
   });
 
   renderFooter(true);
@@ -559,9 +579,16 @@ function renderStep5() {
       </div>
       <div class="form-group" id="fg-phone">
         <label for="b-phone">Phone Number</label>
-        <input type="tel" id="b-phone" placeholder="+1 555 000 0000" autocomplete="tel" value="${booking.client.phone||''}">
+        <input type="tel" id="b-phone" placeholder="+44 7700 000000" autocomplete="tel" value="${booking.client.phone||''}">
         <span class="field-error">Please enter your phone number.</span>
       </div>
+      ${booking.location === 'home' ? `
+      <div class="form-group" id="fg-address">
+        <label for="b-address">Home Address</label>
+        <textarea id="b-address" rows="2" placeholder="Full address including postcode…" autocomplete="street-address">${booking.client.address||''}</textarea>
+        <span class="field-error">Please enter your home address.</span>
+      </div>
+      ` : ''}
       <div class="form-group">
         <label for="b-notes">Special Notes
           <span style="color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
@@ -578,9 +605,11 @@ function renderConfirmation() {
   el('booking-progress').innerHTML = '';
   el('booking-footer').innerHTML   = '';
 
-  const serviceName = booking.service ? booking.service.name : '—';
-  const styleName   = booking.style   ? booking.style.name   : 'To be discussed';
-  const dateStr     = booking.date    ? fmt(booking.date)    : '—';
+  const serviceName  = booking.service  ? booking.service.name : '—';
+  const styleName    = booking.style    ? booking.style.name   : 'To be discussed';
+  const dateStr      = booking.date     ? fmt(booking.date)    : '—';
+  const isHome       = booking.location === 'home';
+  const locationText = isHome ? 'Home Visit (+£20)' : 'Salon — 46 Northcote Rd, BH1 4SQ';
 
   el('booking-body').innerHTML = `
     <div class="booking-confirm">
@@ -598,6 +627,15 @@ function renderConfirmation() {
           <span class="confirm-label">Style</span>
           <span class="confirm-val">${styleName}</span>
         </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Location</span>
+          <span class="confirm-val">${locationText}</span>
+        </div>
+        ${isHome && booking.client.address ? `
+        <div class="confirm-row">
+          <span class="confirm-label">Address</span>
+          <span class="confirm-val">${booking.client.address}</span>
+        </div>` : ''}
         <div class="confirm-row">
           <span class="confirm-label">Date</span>
           <span class="confirm-val">${dateStr}</span>
@@ -619,7 +657,7 @@ function renderConfirmation() {
 /* ---------- NAVIGATION ---------- */
 function renderCurrentStep() {
   renderProgress();
-  ({ 1: renderStep1, 2: renderStep2, 3: renderStep4, 4: renderStep5 })[currentStep]?.();
+  ({ 1: renderStep1, 2: renderStep2, 3: renderStep3, 4: renderStep4, 5: renderStep5 })[currentStep]?.();
 }
 
 function validateStep() {
@@ -631,23 +669,29 @@ function validateStep() {
     alert('Please choose a hair style to continue.');
     return false;
   }
-  if (currentStep === 3) {
+  if (currentStep === 3 && !booking.location) {
+    alert('Please choose a location to continue.');
+    return false;
+  }
+  if (currentStep === 4) {
     if (!booking.date) { alert('Please select a date.'); return false; }
     if (!booking.time) { alert('Please select a time slot.'); return false; }
   }
-  if (currentStep === 4) {
-    const first = el('b-first') && el('b-first').value.trim();
-    const last  = el('b-last')  && el('b-last').value.trim();
-    const email = el('b-email') && el('b-email').value.trim();
-    const phone = el('b-phone') && el('b-phone').value.trim();
+  if (currentStep === 5) {
+    const first   = el('b-first')   && el('b-first').value.trim();
+    const last    = el('b-last')    && el('b-last').value.trim();
+    const email   = el('b-email')   && el('b-email').value.trim();
+    const phone   = el('b-phone')   && el('b-phone').value.trim();
+    const address = booking.location === 'home' ? (el('b-address') && el('b-address').value.trim()) : 'salon';
     let ok = true;
     const check = (fgId, valid) => { el(fgId) && el(fgId).classList.toggle('has-error', !valid); if (!valid) ok = false; };
-    check('fg-first', !!first);
-    check('fg-last',  !!last);
-    check('fg-email', !!email && email.includes('@'));
-    check('fg-phone', !!phone);
+    check('fg-first',   !!first);
+    check('fg-last',    !!last);
+    check('fg-email',   !!email && email.includes('@'));
+    check('fg-phone',   !!phone);
+    if (booking.location === 'home') check('fg-address', !!address);
     if (!ok) return false;
-    booking.client = { firstName: first, lastName: last, email, phone, notes: el('b-notes') && el('b-notes').value.trim() };
+    booking.client = { firstName: first, lastName: last, email, phone, address: address !== 'salon' ? address : '', notes: el('b-notes') && el('b-notes').value.trim() };
   }
   return true;
 }
@@ -663,7 +707,7 @@ function prevStep() {
 }
 
 function resetBooking() {
-  Object.assign(booking, { service: null, style: null, stylist: null, date: null, time: null, client: {} });
+  Object.assign(booking, { service: null, style: null, location: null, date: null, time: null, client: {} });
   currentStep = 1;
   renderCurrentStep();
 }
