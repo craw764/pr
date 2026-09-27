@@ -633,15 +633,32 @@ function renderStep5() {
 }
 
 /* ---------- CONFIRMATION ---------- */
+function sendBookingEmail(details) {
+  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    to_email:    'danclaude234@gmail.com',
+    client_name: details.clientName,
+    client_email:details.clientEmail,
+    client_phone:details.clientPhone,
+    service:     details.serviceName,
+    style:       details.styleName,
+    location:    details.locationText,
+    address:     details.address || 'N/A',
+    date:        details.dateStr,
+    time:        details.time,
+    service_price: details.servicePrice
+  }).catch(() => {});
+}
+
 function renderConfirmation() {
   el('booking-progress').innerHTML = '';
   el('booking-footer').innerHTML   = '';
 
-  const serviceName  = booking.service  ? booking.service.name : '—';
-  const styleName    = booking.style    ? booking.style.name   : 'To be discussed';
-  const dateStr      = booking.date     ? fmt(booking.date)    : '—';
+  const serviceName  = booking.service  ? booking.service.name  : '—';
+  const styleNameVal = booking.style    ? booking.style.name    : 'To be discussed';
+  const dateStr      = booking.date     ? fmt(booking.date)     : '—';
   const isHome       = booking.location === 'home';
   const locationText = isHome ? 'Home Visit (+£20)' : 'Salon — 46 Northcote Rd, BH1 4SQ';
+  const styleName    = styleNameVal;
 
   el('booking-body').innerHTML = `
     <div class="booking-confirm">
@@ -684,6 +701,19 @@ function renderConfirmation() {
       <button class="btn btn-gold" onclick="resetBooking()">Book Another Appointment</button>
     </div>
   `;
+
+  sendBookingEmail({
+    clientName:   `${booking.client.firstName} ${booking.client.lastName}`,
+    clientEmail:  booking.client.email,
+    clientPhone:  booking.client.phone,
+    serviceName,
+    styleName,
+    locationText,
+    address:      booking.client.address,
+    dateStr,
+    time:         booking.time,
+    servicePrice: booking.service ? booking.service.price : '—'
+  });
 }
 
 /* ---------- NAVIGATION ---------- */
