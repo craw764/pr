@@ -634,7 +634,7 @@ function renderStep5() {
 
 /* ---------- CONFIRMATION ---------- */
 function sendBookingEmail(details) {
-  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+  emailjs.send('service_84rsf7z', 'template_x0tgctl', {
     to_email:    'danclaude234@gmail.com',
     client_name: details.clientName,
     client_email:details.clientEmail,
