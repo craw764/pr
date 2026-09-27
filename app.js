@@ -15,17 +15,17 @@ const WAVE_SVG    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 const KNOT_SVG    = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg>`;
 
 const SERVICES = [
-  { id: 'cornrows-plain',  name: 'Cornrows (No Extension)', desc: 'Classic, neat cornrows styled close to the scalp using your natural hair only.',          duration: '1–2 hrs',   price: '£40',  icon: CORNROW_SVG },
-  { id: 'cornrows-ext',    name: 'Cornrows (With Extension)',desc: 'Sleek cornrows extended with braiding hair for added length and fuller coverage.',         duration: '2–3 hrs',   price: '£60',  icon: CORNROW_SVG },
-  { id: 'knotless-braids', name: 'Knotless Braids',         desc: 'Tension-free individual braids that start with your own hair for a natural, pain-free finish.', duration: '3–5 hrs', price: '£90',  icon: BRAID_SVG  },
+  { id: 'cornrows-plain',  name: 'Cornrows (No Extension)', desc: 'Classic, neat cornrows styled close to the scalp using your natural hair only.',          duration: '1–2 hrs',   price: '£20',  icon: CORNROW_SVG },
+  { id: 'cornrows-ext',    name: 'Cornrows (With Extension)',desc: 'Sleek cornrows extended with braiding hair for added length and fuller coverage.',         duration: '2–3 hrs',   price: '£50',  icon: CORNROW_SVG },
+  { id: 'knotless-braids', name: 'Knotless Braids',         desc: 'Tension-free individual braids that start with your own hair for a natural, pain-free finish.', duration: '3–5 hrs', price: '£100', icon: BRAID_SVG  },
   { id: 'box-braids',      name: 'Box Braids',              desc: 'Timeless protective style with clean square partings and your choice of length and thickness.', duration: '3–5 hrs', price: '£80',  icon: BRAID_SVG  },
   { id: 'boho-braids',     name: 'Boho Braids',             desc: 'Romantic knotless braids with loose, curly ends for a free-spirited, effortless look.',   duration: '4–6 hrs',   price: '£110', icon: CURL_SVG   },
-  { id: 'goddess-braids',  name: 'Goddess Braids',          desc: 'Thick, bold cornrow-style braids often worn as an updo or swept back style.',              duration: '2–3 hrs',   price: '£75',  icon: CORNROW_SVG},
+  { id: 'goddess-braids',  name: 'Goddess Braids',          desc: 'Thick, bold cornrow-style braids often worn as an updo or swept back style.',              duration: '2–3 hrs',   price: '£100', icon: CORNROW_SVG},
   { id: 'ghana-weaving',   name: 'Ghana Weaving',           desc: 'Intricate feed-in cornrows starting small at the hairline and gradually increasing in size.', duration: '2–4 hrs', price: '£70',  icon: WAVE_SVG   },
-  { id: 'french-curls',    name: 'French Curls',            desc: 'Beautiful bouncy curls created using a crochet hook for a voluminous, defined look.',       duration: '2–3 hrs',   price: '£65',  icon: CURL_SVG   },
+  { id: 'french-curls',    name: 'French Curls',            desc: 'Beautiful bouncy curls created using a crochet hook for a voluminous, defined look.',       duration: '2–3 hrs',   price: '£100', icon: CURL_SVG   },
   { id: 'sew-in',          name: 'Sew In',                  desc: 'Weft hair sewn onto cornrowed natural hair for a seamless, long-lasting protective style.',  duration: '2–4 hrs',   price: '£85',  icon: NEEDLE_SVG },
-  { id: 'crochet',         name: 'Crochet',                 desc: 'Pre-looped hair attached with a crochet needle to cornrow base — quick and versatile.',     duration: '2–3 hrs',   price: '£70',  icon: KNOT_SVG   },
-  { id: 'mens-cornrows',   name: "Men's Cornrows",          desc: 'Sharp, clean cornrows tailored for men — straight backs, designs, or curved patterns.',     duration: '1–2 hrs',   price: '£45',  icon: CORNROW_SVG},
+  { id: 'crochet',         name: 'Crochet',                 desc: 'Pre-looped hair attached with a crochet needle to cornrow base — quick and versatile.',     duration: '2–3 hrs',   price: '£50',  icon: KNOT_SVG   },
+  { id: 'mens-cornrows',   name: "Men's Cornrows",          desc: 'Sharp, clean cornrows tailored for men — straight backs, designs, or curved patterns.',     duration: '1–2 hrs',   price: '£30',  icon: CORNROW_SVG},
   { id: 'miracle-knots',   name: 'Miracle Knots Braids',   desc: 'Invisible-knot individual braids that look as if they grow directly from the scalp.',        duration: '3–5 hrs',   price: '£100', icon: KNOT_SVG   }
 ];
 
@@ -77,16 +77,16 @@ const PRICING = [
   {
     category: 'Cornrows',
     items: [
-      { name: 'Cornrows (No Extension)',  price: 'from £40' },
-      { name: 'Cornrows (With Extension)',price: 'from £60' },
-      { name: "Men's Cornrows",           price: 'from £45' },
-      { name: 'Goddess Braids',           price: 'from £75' }
+      { name: 'Cornrows (No Extension)',  price: 'from £20' },
+      { name: 'Cornrows (With Extension)',price: 'from £50' },
+      { name: "Men's Cornrows",           price: 'from £30' },
+      { name: 'Goddess Braids',           price: 'from £100' }
     ]
   },
   {
     category: 'Individual Braids',
     items: [
-      { name: 'Knotless Braids',          price: 'from £90',  note: 'Hair included' },
+      { name: 'Knotless Braids',          price: 'from £100', note: 'Hair included' },
       { name: 'Box Braids',               price: 'from £80',  note: 'Hair included' },
       { name: 'Boho Braids',              price: 'from £110', note: 'Hair included' },
       { name: 'Miracle Knots Braids',     price: 'from £100', note: 'Hair included' }
@@ -96,9 +96,9 @@ const PRICING = [
     category: 'Weaving & Curls',
     items: [
       { name: 'Ghana Weaving',            price: 'from £70' },
-      { name: 'French Curls',             price: 'from £65' },
+      { name: 'French Curls',             price: 'from £100' },
       { name: 'Sew In',                   price: 'from £85', note: 'Hair extra' },
-      { name: 'Crochet',                  price: 'from £70', note: 'Hair extra' }
+      { name: 'Crochet',                  price: 'from £50', note: 'Hair extra' }
     ]
   },
   {
