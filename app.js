@@ -52,16 +52,16 @@ const STYLISTS = [
 ];
 
 const GALLERY = [
-  { category: 'Braids',    label: 'Passion Twists',          photo: 'images/gallery-1.png' },
-  { category: 'Braids',    label: 'Knotless Braids',         photo: 'images/gallery-2.png' },
-  { category: 'Curls',     label: 'Boho Curls Volume',       photo: 'images/gallery-3.png' },
-  { category: 'Curls',     label: 'French Curls',            photo: 'images/gallery-4.png' },
-  { category: 'Curls',     label: 'Crochet Curls',           photo: 'images/gallery-5.png' },
-  { category: 'Braids',    label: 'Boho Braids',             photo: 'images/gallery-6.png' },
-  { category: 'Braids',    label: 'Knotless Updo',           photo: 'images/gallery-7.png' },
-  { category: 'Braids',    label: 'Boho Braids with Curls',  photo: 'images/gallery-8.png' },
-  { category: 'Cornrows',  label: 'Ghana Weaving',           photo: 'images/gallery-9.png' },
-  { category: 'Cornrows',  label: 'Feed-In Cornrows',        photo: 'images/gallery-10.png' }
+  { category: 'Cornrows',  label: 'Straight Back Cornrows',  gradient: 'linear-gradient(145deg,#150a00 0%,#3d1f00 45%,#8b4a10 100%)' },
+  { category: 'Braids',    label: 'Knotless Braids',         gradient: 'linear-gradient(145deg,#2a1800 0%,#6b3c00 50%,#c9a96e 100%)' },
+  { category: 'Braids',    label: 'Box Braids',              gradient: 'linear-gradient(145deg,#0f0500 0%,#3d1500 50%,#7a3000 100%)' },
+  { category: 'Braids',    label: 'Boho Braids with Curls',  gradient: 'linear-gradient(145deg,#200800 0%,#6b2800 50%,#c97040 100%)' },
+  { category: 'Weaving',   label: 'Ghana Feed-In Weaving',   gradient: 'linear-gradient(145deg,#0a0a1a 0%,#1a1a4a 50%,#3535aa 100%)' },
+  { category: 'Braids',    label: 'Goddess Braids Updo',     gradient: 'linear-gradient(145deg,#150d00 0%,#4a2800 50%,#8b5500 100%)' },
+  { category: 'Curls',     label: 'French Curls',            gradient: 'linear-gradient(145deg,#1a0500 0%,#7a1500 50%,#c94010 100%)' },
+  { category: 'Cornrows',  label: 'Cornrow Design Pattern',  gradient: 'linear-gradient(145deg,#0a0510 0%,#25105a 50%,#5020a0 100%)' },
+  { category: 'Braids',    label: 'Miracle Knots Braids',    gradient: 'linear-gradient(145deg,#1c1c1c 0%,#444 55%,#8a8a8a 100%)' },
+  { category: 'Curls',     label: 'Crochet Volume Style',    gradient: 'linear-gradient(145deg,#0f0f0f 0%,#282828 50%,#3d3530 100%)' }
 ];
 
 const TESTIMONIALS = [
