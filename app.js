@@ -251,38 +251,17 @@ function initStylists() {
 /* ----------------------------------------------------------
    GALLERY
 ---------------------------------------------------------- */
-function initGallery() {
-  const categories = ['All', ...new Set(GALLERY.map(g => g.category))];
-  const filtersEl  = el('gallery-filters');
-  const gridEl     = el('gallery-grid');
-
-  filtersEl.innerHTML = categories.map((cat, i) => `
-    <button class="style-cat-btn ${i === 0 ? 'active' : ''}" data-cat="${cat}">${cat}</button>
-  `).join('');
-
-  gridEl.innerHTML = GALLERY.map(g => `
-    <div class="gallery-item reveal ${g.photo ? 'gallery-item--photo' : ''}" data-cat="${g.category}">
-      ${g.photo
-        ? `<img class="gallery-art gallery-photo" src="${g.photo}" alt="${g.label}" loading="lazy">`
-        : `<div class="gallery-art" style="background:${g.gradient}"></div>`
-      }
-      <div class="gallery-overlay">
-        <div class="gallery-cat">${g.category}</div>
-        <div class="gallery-label">${g.label}</div>
-      </div>
+function initHairstyles() {
+  const listEl = el('hairstyles-list');
+  if (!listEl) return;
+  listEl.innerHTML = SERVICES.map(s => `
+    <div class="hairstyle-item reveal">
+      <div class="hairstyle-item__icon">${s.icon}</div>
+      <div class="hairstyle-item__name">${s.name}</div>
+      <div class="hairstyle-item__price">${s.price}+</div>
+      <a href="#booking" class="hairstyle-item__cta">Book</a>
     </div>
   `).join('');
-
-  filtersEl.addEventListener('click', e => {
-    const btn = e.target.closest('.style-cat-btn');
-    if (!btn) return;
-    qsa('.style-cat-btn', filtersEl).forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.cat;
-    qsa('.gallery-item', gridEl).forEach(item => {
-      item.classList.toggle('hidden', cat !== 'All' && item.dataset.cat !== cat);
-    });
-  });
 }
 
 /* ----------------------------------------------------------
@@ -785,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initHamburger();
   initServices();
-  initGallery();
+  initHairstyles();
   initTestimonials();
   initPricing();
   renderCurrentStep();

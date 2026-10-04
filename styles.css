@@ -1049,6 +1049,65 @@ em { font-style: italic; color: var(--gold); }
 .gallery-cat { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
 
 /* ============================================================
+   HAIRSTYLES LIST
+   ============================================================ */
+.hairstyles-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+.hairstyle-item {
+  background: var(--bg-card);
+  border: 1px solid rgba(201,169,110,.15);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: .6rem;
+  transition: border-color .25s, transform .25s;
+}
+.hairstyle-item:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+.hairstyle-item__icon svg {
+  width: 32px; height: 32px;
+  stroke: var(--gold);
+}
+.hairstyle-item__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.3;
+}
+.hairstyle-item__price {
+  font-size: .8rem;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.hairstyle-item__cta {
+  margin-top: auto;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: .3rem .9rem;
+  transition: background .2s, color .2s;
+}
+.hairstyle-item__cta:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* ============================================================
    TESTIMONIALS
    ============================================================ */
 .testimonials-grid {
