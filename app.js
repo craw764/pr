@@ -613,17 +613,35 @@ function renderStep5() {
 
 /* ---------- CONFIRMATION ---------- */
 function sendBookingEmail(details) {
+  const message = `
+NEW APPOINTMENT BOOKING — Nnenny's Hair
+========================================
+Client Name:   ${details.clientName}
+Email:         ${details.clientEmail}
+Phone:         ${details.clientPhone}
+----------------------------------------
+Service:       ${details.serviceName} (${details.servicePrice})
+Style:         ${details.styleName}
+Location:      ${details.locationText}
+Address:       ${details.address || 'N/A'}
+Date:          ${details.dateStr}
+Time:          ${details.time}
+========================================
+  `.trim();
+
   emailjs.send('service_84rsf7z', 'template_x0tgctl', {
-    to_email:    'danclaude234@gmail.com',
-    client_name: details.clientName,
-    client_email:details.clientEmail,
-    client_phone:details.clientPhone,
-    service:     details.serviceName,
-    style:       details.styleName,
-    location:    details.locationText,
-    address:     details.address || 'N/A',
-    date:        details.dateStr,
-    time:        details.time,
+    to_email:      'danclaude234@gmail.com',
+    subject:       `New Booking: ${details.clientName} — ${details.dateStr} ${details.time}`,
+    message,
+    client_name:   details.clientName,
+    client_email:  details.clientEmail,
+    client_phone:  details.clientPhone,
+    service:       details.serviceName,
+    style:         details.styleName,
+    location:      details.locationText,
+    address:       details.address || 'N/A',
+    date:          details.dateStr,
+    time:          details.time,
     service_price: details.servicePrice
   }).catch(() => {});
 }
