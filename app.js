@@ -305,6 +305,113 @@ function initPricing() {
 }
 
 /* ----------------------------------------------------------
+   AVAILABILITY CALENDAR
+---------------------------------------------------------- */
+function initCalendar() {
+  const container = el('availability-calendar');
+  if (!container) return;
+
+  const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAY_NAMES   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let   viewYear, viewMonth;
+
+  function setView(y, m) {
+    viewYear  = y;
+    viewMonth = m;
+    render();
+  }
+
+  function render() {
+    const today    = new Date();
+    const firstDay = new Date(viewYear, viewMonth, 1);
+    const lastDay  = new Date(viewYear, viewMonth + 1, 0);
+    const startPad = firstDay.getDay();
+
+    let cells = '';
+    for (let i = 0; i < startPad; i++) cells += `<div class="cal-cell cal-cell--empty"></div>`;
+
+    for (let d = 1; d <= lastDay.getDate(); d++) {
+      const date    = new Date(viewYear, viewMonth, d);
+      const isPast  = date < today && date.toDateString() !== today.toDateString();
+      const isMon   = date.getDay() === 1;
+      const isToday = date.toDateString() === today.toDateString();
+      const booked  = bookedTimesOnDate(date);
+      const full    = booked.length >= ALL_TIMES.length;
+      const partial = booked.length > 0 && !full;
+
+      let cls = 'cal-cell';
+      if (isPast || isMon)  cls += ' cal-cell--closed';
+      else if (full)        cls += ' cal-cell--full';
+      else if (partial)     cls += ' cal-cell--partial';
+      else                  cls += ' cal-cell--open';
+      if (isToday)          cls += ' cal-cell--today';
+
+      const label = isMon ? 'Closed' : full ? 'Full' : partial ? `${ALL_TIMES.length - booked.length} slots` : 'Open';
+
+      cells += `<div class="${cls}" title="${label}">
+        <span class="cal-num">${d}</span>
+        <span class="cal-tag">${label}</span>
+      </div>`;
+    }
+
+    container.innerHTML = `
+      <div class="cal-header">
+        <button class="cal-nav" id="cal-prev">&#8249;</button>
+        <div class="cal-month-title">${MONTH_NAMES[viewMonth]} ${viewYear}</div>
+        <button class="cal-nav" id="cal-next">&#8250;</button>
+      </div>
+      <div class="cal-day-names">
+        ${DAY_NAMES.map(d => `<div class="cal-day-name">${d}</div>`).join('')}
+      </div>
+      <div class="cal-grid">${cells}</div>
+      <div class="cal-legend">
+        <span class="cal-legend-item"><span class="cal-dot cal-dot--open"></span>Available</span>
+        <span class="cal-legend-item"><span class="cal-dot cal-dot--partial"></span>Filling up</span>
+        <span class="cal-legend-item"><span class="cal-dot cal-dot--full"></span>Fully booked</span>
+        <span class="cal-legend-item"><span class="cal-dot cal-dot--closed"></span>Closed</span>
+      </div>
+    `;
+
+    el('cal-prev').addEventListener('click', () => {
+      let m = viewMonth - 1, y = viewYear;
+      if (m < 0) { m = 11; y--; }
+      setView(y, m);
+    });
+    el('cal-next').addEventListener('click', () => {
+      let m = viewMonth + 1, y = viewYear;
+      if (m > 11) { m = 0; y++; }
+      setView(y, m);
+    });
+  }
+
+  const now = new Date();
+  setView(now.getFullYear(), now.getMonth());
+}
+
+/* ----------------------------------------------------------
+   BOOKINGS STORE  (persisted in localStorage)
+---------------------------------------------------------- */
+function loadBookings() {
+  try { return JSON.parse(localStorage.getItem('nnenny_bookings') || '[]'); } catch { return []; }
+}
+function saveBooking(entry) {
+  const all = loadBookings();
+  all.push(entry);
+  localStorage.setItem('nnenny_bookings', JSON.stringify(all));
+}
+function isSlotBooked(dateObj, time) {
+  const key = dateObj.toDateString();
+  return loadBookings().some(b => b.dateKey === key && b.time === time);
+}
+function bookedTimesOnDate(dateObj) {
+  const key = dateObj.toDateString();
+  return loadBookings().filter(b => b.dateKey === key).map(b => b.time);
+}
+function isDateFullyBooked(dateObj) {
+  return bookedTimesOnDate(dateObj).length >= ALL_TIMES.length;
+}
+
+/* ----------------------------------------------------------
    BOOKING WIZARD
 ---------------------------------------------------------- */
 function getAvailableDates() {
@@ -505,7 +612,7 @@ function renderStep4() {
   function timeGrid() {
     if (!booking.date) return '<p style="color:var(--text-muted);font-size:0.88rem">Select a date above to see available times.</p>';
     return ALL_TIMES.map(t => {
-      const unavail = Math.random() < 0.2;
+      const unavail = isSlotBooked(booking.date, t);
       const sel     = booking.time === t && !unavail;
       return `
         <div class="time-pill ${unavail ? 'unavailable' : ''} ${sel ? 'selected' : ''}"
@@ -699,6 +806,13 @@ function renderConfirmation() {
     </div>
   `;
 
+  saveBooking({
+    dateKey:  booking.date ? booking.date.toDateString() : '',
+    time:     booking.time,
+    service:  booking.service ? booking.service.name : '',
+    client:   `${booking.client.firstName} ${booking.client.lastName}`
+  });
+
   sendBookingEmail({
     clientName:   `${booking.client.firstName} ${booking.client.lastName}`,
     clientEmail:  booking.client.email,
@@ -783,6 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHamburger();
   initServices();
   initHairstyles();
+  initCalendar();
   initTestimonials();
   initPricing();
   renderCurrentStep();
